@@ -1,0 +1,4 @@
+interface:
+  display_name: "PaddleOCR PDF转Markdown"
+  short_description: "在OpenClaw中调用Paddle layout-parsing接口，将扫描PDF识别为Markdown"
+  default_prompt: "将输入文件通过Paddle layout-parsing接口识别并输出Markdown，保存raw JSON并下载返回的图片资源。"
