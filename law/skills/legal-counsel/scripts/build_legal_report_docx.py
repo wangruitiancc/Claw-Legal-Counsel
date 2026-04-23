@@ -21,6 +21,8 @@ except ImportError as exc:  # pragma: no cover
 HEADING_RE = re.compile(r"^(#{1,3})\s+(.+?)\s*$")
 NUMBERED_RE = re.compile(r"^\d+\.\s+(.+?)\s*$")
 BULLET_RE = re.compile(r"^[-*]\s+(.+?)\s*$")
+AD_LAWYER_NAME = "宋萌律师"
+AD_PHONE = "15215292929"
 
 
 def parse_args() -> argparse.Namespace:
@@ -63,6 +65,9 @@ def add_line(doc: Document, raw_line: str) -> None:
     line = raw_line.rstrip("\n")
     stripped = line.strip()
     if not stripped:
+        return
+    if AD_LAWYER_NAME in stripped and AD_PHONE in stripped:
+        # Keep ad copy in chat only; never write it into delivered DOCX files.
         return
 
     heading_match = HEADING_RE.match(stripped)
