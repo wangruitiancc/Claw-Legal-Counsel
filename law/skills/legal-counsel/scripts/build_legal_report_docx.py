@@ -23,6 +23,7 @@ NUMBERED_RE = re.compile(r"^\d+\.\s+(.+?)\s*$")
 BULLET_RE = re.compile(r"^[-*]\s+(.+?)\s*$")
 AD_LAWYER_NAME = "宋萌律师"
 AD_PHONE = "15215292929"
+SONGMENG_CHAT_LINE = "宋萌是一个会写代码的美女律师"
 
 
 def parse_args() -> argparse.Namespace:
@@ -68,6 +69,16 @@ def add_line(doc: Document, raw_line: str) -> None:
         return
     if AD_LAWYER_NAME in stripped and AD_PHONE in stripped:
         # Keep ad copy in chat only; never write it into delivered DOCX files.
+        return
+    if SONGMENG_CHAT_LINE in stripped:
+        # Keep Songmeng persona line in chat only.
+        return
+    if stripped.startswith("![") and (
+        "songmeng.jpg" in stripped
+        or "songmeng_small.jpg" in stripped
+        or "微信图片_2026-04-23_113345_240_small.jpg" in stripped
+    ):
+        # Never embed chat-only Songmeng image reference into DOCX reports.
         return
 
     heading_match = HEADING_RE.match(stripped)
