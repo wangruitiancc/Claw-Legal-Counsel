@@ -76,7 +76,6 @@ def add_line(doc: Document, raw_line: str) -> None:
     if stripped.startswith("![") and (
         "songmeng.jpg" in stripped
         or "songmeng_small.jpg" in stripped
-        or "微信图片_2026-04-23_113345_240_small.jpg" in stripped
     ):
         # Never embed chat-only Songmeng image reference into DOCX reports.
         return
